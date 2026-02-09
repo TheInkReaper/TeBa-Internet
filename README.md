@@ -7,7 +7,9 @@ El objetivo es informarte de posibles saturaciones de red (lag, caídas de strea
 
 ## Sistema de Alertas (Icono)
 🟢 VERDE: No hay partidos hoy. Red segura.
+
 🟠 NARANJA: Hay partido hoy, pero no en este momento.
+
 🔴 ROJO: Partido en juego ahora mismo. Riesgo de lag.
 
 ## Instalación
@@ -22,3 +24,4 @@ Creado como herramienta de utilidad para gamers y usuarios de streaming.
 Datos provistos por football-data.org.
 
 <img width="341" height="326" alt="Captura de pantalla 2026-02-09 054349" src="https://github.com/user-attachments/assets/baaecc43-3d68-4ddd-9853-b8117d5637d8" />
+
