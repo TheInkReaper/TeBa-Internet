@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "TeBa Internet",
+  "version": "1.0",
+  "description": "Semáforo de red y resultados de LaLiga en directo.",
+  "icons": {
+    "128": "logo.png"
+  },
+  "permissions": [
+    "alarms",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.football-data.org/*"
+  ],   
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon_green.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
