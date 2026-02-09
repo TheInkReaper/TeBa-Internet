@@ -4,9 +4,7 @@ const COMPETITION_ID = 'PD';
 document.addEventListener('DOMContentLoaded', () => {
   chrome.storage.local.get(['matchData'], (result) => {
     const matches = result.matchData || [];
-
     renderView(matches);
-
     if (matches.length > 0) {
       checkForLiveUpdates(matches);
     }
@@ -49,7 +47,7 @@ async function fetchLiveMatches() {
 function renderView(matches) {
   const list = document.getElementById('match-list');
   const statusBox = document.getElementById('status-box');
-  const header = document.getElementById('main-header');
+  const header = document.getElementById('main-header'); 
   const now = new Date();
 
   list.innerHTML = '';
@@ -70,7 +68,13 @@ function renderView(matches) {
 
     const start = new Date(match.utcDate);
     const end = new Date(start.getTime() + 120 * 60000);
+    
     const localTime = start.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    
+    const endTime = end.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
     });
@@ -79,9 +83,9 @@ function renderView(matches) {
     let badgeClass = 'badge';
     let scoreHtml = '';
     let rowStyle = '';
+    let extraInfoHtml = ''; 
 
     const isInPlay = match.status === 'IN_PLAY' || match.status === 'PAUSED';
-
     const isTime = now >= start && now <= end;
 
     if (isInPlay || (isTime && match.status !== 'FINISHED')) {
@@ -90,7 +94,8 @@ function renderView(matches) {
       badgeClass = 'badge-live';
       rowStyle = 'background-color: #fff0f0;';
 
-      // Goles
+      extraInfoHtml = `<div style="font-size: 11px; color: #d63384; margin-top: 2px;">Fin aprox: ${endTime}</div>`;
+
       if (match.score && match.score.fullTime) {
         const home = match.score.fullTime.home ?? 0;
         const away = match.score.fullTime.away ?? 0;
@@ -108,7 +113,7 @@ function renderView(matches) {
     li.innerHTML = `
       <div class="match-info">
         <span class="teams">${match.homeTeam.shortName} vs ${match.awayTeam.shortName}</span>
-        <div style="margin-top:4px;">${scoreHtml}</div>
+        ${extraInfoHtml} <div style="margin-top:4px;">${scoreHtml}</div>
       </div>
       <span class="badge ${badgeClass}">${statusText}</span>
     `;
